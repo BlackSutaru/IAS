@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internal Affairs Bureau - SACSD</title>
+
+<style>
+
+.prev,
+.next{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:9999;
+
+    background:rgba(0,0,0,0.6);
+    color:white;
+
+    border:none;
+    cursor:pointer;
+
+    font-size:28px;
+
+    padding:15px 20px;
+}
+
+.prev{
+    left:20px;
+}
+
+.next{
+    right:20px;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Segoe UI, Arial, sans-serif;
+    background:#f4f6f9;
+    color:#222;
+}
+
+header{
+    background:#003366;
+    color:white;
+    padding:20px;
+}
+
+.header-container{
+    max-width:1200px;
+    margin:auto;
+}
+
+header h1{
+    font-size:32px;
+}
+
+header p{
+    margin-top:5px;
+}
+
+nav{
+    background:#00509e;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+}
+
+nav li{
+    padding:15px 20px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#cfe8ff;
+}
+
+.slider{
+    position:relative;
+    height:400px;
+    overflow:hidden;
+}
+
+.slide{
+    position:absolute;
+    width:100%;
+    height:300px;
+
+    display:none;
+
+    background:#003366;
+    color:white;
+
+    text-align:center;
+
+    padding-top:100px;
+
+    background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+}
+
+.slide.active{
+    display:block;
+}
+
+.slide h2{
+    font-size:42px;
+}
+
+.slide p{
+    margin-top:10px;
+    font-size:18px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:30px 20px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom:20px;
+}
+
+.card h3{
+    color:#003366;
+    margin-bottom:10px;
+}
+
+footer{
+    background:#003366;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+.org-chart{
+    text-align:center;
+    padding:30px;
+}
+
+.leader img{
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    object-fit:cover;
+    border:5px solid #00509e;
+}
+
+.staff{
+    margin-top:70px;
+
+    display:flex;
+    justify-content:center;
+    gap:220px;
+
+    border-top:2px solid #d0d0d0;
+    padding-top:50px;
+
+}
+
+.member img{
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid #00509e;
+}
+
+</style>
+
+.prev,
+.next{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(0,0,0,0.5);
+    color:white;
+    border:none;
+    padding:15px;
+    cursor:pointer;
+    font-size:24px;
+    z-index:10;
+}
+
+.prev{
+    left:20px;
+}
+
+.next{
+    right:20px;
+}
+
+</head>
+<body>
+
+<header>
+<div class="header-container">
+
+<h1>INTERNAL AFFAIRS BUREAU</h1>
+
+<p>San Andreas Police Department</p>
+
+<p>Ten Roleplay</p>
+
+</div>
+</header>
+
+<nav>
+<ul>
+<li><a href="#">HOME</a></li>
+<li><a href="#">ABOUT DIVISION</a></li>
+<li><a href="#">STRUCTURE</a></li>
+<li><a href="#">PROCEDURES</a></li>
+<li><a href="#">CONSTITUTION</a></li>
+<li><a href="#">PENAL CODE</a></li>
+</ul>
+</nav>
+
+</section>
+<section class="slider">
+
+<div class="slide active" style="background-image:url('img/banner1.jpg');">
+    <h2>Internal Affairs Bureau</h2>
+    <p>Maintaining Integrity and Accountability</p>
+</div>
+
+<div class="slide" style="background-image:url('img/banner2.jpg');">
+    <h2>Professional Standards Division</h2>
+    <p>Serving with Professionalism</p>
+</div>
+
+<div class="slide" style="background-image:url('img/banner3.jpeg');">
+    <h2>Killing And Secure The Area</h2>
+    <p>Serving with Professionalism</p>
+</div>
+
+
+<button class="prev" onclick="prevSlide()">❮</button>
+<button class="next" onclick="nextSlide()">❯</button>
+
+</section>
+
+
+<div class="container">
+
+<div class="card">
+<h3>About Division</h3>
+
+<p>
+Divisi Internal Affairs dalam sebuah divisi penegakan hukum internal memiliki peran yang sangat krusial dalam menjaga integritas, profesionalisme, serta akuntabilitas seluruh officer. Internal Affairs bertanggung jawab dalam melakukan pengawasan, evaluasi, serta penegakan disiplin terhadap setiap tindakan yang dilakukan oleh officer, sehingga kepercayaan terhadap Sheriff Department dapat tetap terjaga.
+
+Seiring dengan perkembangan sheriff department yang baru dan meningkatnya kompleksitas tugas, diperlukan sistem pengawasan yang lebih terstruktur, transparan, dan konsisten. Tanpa adanya pengelolaan Internal Affairs yang optimal, potensi terjadinya pelanggaran, penyalahgunaan wewenang, maupun menurunnya kinerja anggota dapat meningkat, yang pada akhirnya berdampak pada citra dan efektivitas Sheriff  Department secara keseluruhan.
+</p>
+
+</div>
+
+<div class="card">
+<h3>Latest Announcements</h3>
+
+<p>
+Belum ada pengumuman terbaru.
+</p>
+
+</div>
+
+<div class="card">
+<h3>Quick Access</h3>
+
+<p>
+• Organizational Structure<br>
+• Procedures<br>
+• Constitution<br>
+• Penal Code
+</p>
+
+</div>
+
+<div class="org-chart">
+
+    <div class="leader">
+        <img src="img/head.jpg">
+        <h3>Wesker Wilborn</h3>
+        <p>Head of Internal Affairs</p>
+    </div>
+
+    <div class="staff">
+
+        <div class="member">
+            <img src="img/deputy.jpg">
+            <h4>Axel Ganesha</h4>
+            <p>Co Head Internal Affairs</p>
+        </div>
+
+        <div class="member">
+            <img src="img/supervisor.jpg">
+            <h4>Tan Santcuary</h4>
+            <p>Supervisor</p>
+        </div>
+
+    </div>
+
+</div>
+
+</footer>
+
+<script>
+
+let current = 0;
+
+const slides = document.querySelectorAll('.slide');
+
+function showSlide(index){
+    slides.forEach(slide=>{
+        slide.classList.remove('active');
+    });
+
+    slides[index].classList.add('active');
+}
+
+function nextSlide(){
+    current++;
+
+    if(current >= slides.length){
+        current = 0;
+    }
+
+    showSlide(current);
+}
+
+function prevSlide(){
+    current--;
+
+    if(current < 0){
+        current = slides.length - 1;
+    }
+
+    showSlide(current);
+}
+
+setInterval(nextSlide, 8000);
+
+</script>
+
+</body>
+</html>
