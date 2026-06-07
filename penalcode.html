@@ -151,6 +151,20 @@ background-repeat:no-repeat;
     margin-bottom:10px;
 }
 
+.card p{
+    font-weight:600;
+}
+
+.card a{
+    text-decoration:none;
+    color:#003366;
+    font-weight:bold;
+}
+
+.card a:hover{
+    color:#00509e;
+}
+
 footer{
     background:#003366;
     color:white;
@@ -222,30 +236,12 @@ footer{
     text-decoration:none;
 }
 
-.sidebar a:hover{
-    background:#00509e;
-}
-
 .sidebar.active{
     left:0;
 }
 
-.dropdown{
-    position:relative;
-}
-
-.submenu{
-    display:none;
-    background:#004080;
-}
-
-.submenu a{
-    padding-left:35px;
-    font-size:14px;
-}
-
-.dropdown:hover .submenu{
-    display:block;
+.sidebar a:hover{
+    background:#00509e;
 }
 
 </style>
@@ -260,15 +256,15 @@ onclick="openMenu()">&#9776;</button>
 
 <a href="index.html">🏠 Home</a>
 
-<div class="dropdown">
-    <a href="penalcode.html">📜 Penal Code ▼</a>
+<a href="penalcode.html">📜 Penal Code</a>
 
-    <div class="submenu">
-        <a href="traffic.html">🚦 Traffic</a>
-        <a href="misdemeanor.html">⚠️ Misdemeanor</a>
-        <a href="felony.html">🔫 Felony</a>
-    </div>
-</div>
+<a href="UUD.html">⚖️ Undang-Undang Kota</a>
+
+<a href="SBI.html">🕵️ Kewenangan Bureau Investigation</a>
+
+<a href="EMS.html">🏥 Penalty Medical Services</a>
+
+<a href="POLICE.html">👮 Undang-Undang Kepolisian</a>
 
 <a href="#">📋 Procedures</a>
 
@@ -309,23 +305,25 @@ onclick="openMenu()">&#9776;</button>
 </div>
 
 <div class="card">
-    <h3><a href="traffic.html">🚦 Traffic Violations</a></h3>
-    <p>Vehicle and traffic-related offenses.</p>
+    <h2><a href="traffic.html">🚦 Traffic Violations</a></h2>
+    <p>Pelanggaran lalu lintas yang disebabkan oleh kendaraan,maka dapat diberikan denda
+        sesuai ketentuan penal code ini.</p>
 </div>
 
 <div class="card">
-    <h3><a href="misdemeanor.html">⚠️ Misdemeanor Offenses</a></h3>
-    <p>Moderate criminal violations.</p>
+    <h2><a href="misdemeanor.html">⚠️ Misdemeanor Offenses</a></h2>
+    <p>Penal Code ini akan menentukan sebuah Fine
+         dan lama penjara bagi orang orang yang terkait dengan Illegal Job.</p>
 </div>
 
 <div class="card">
-    <h3><a href="felony.html">🔫 Felony Offenses</a></h3>
-    <p>Serious criminal offenses.</p>
+    <h2><a href="felony.html">🔫 Felony Offenses</a></h2>
+    <p>Penal Code lengkap mengenai kejahatan penembakan dan semua hak yang 
+        terkait dengan senjata.</p>
 </div>
 
 </div>
 
-</footer>
 
 <script>
 

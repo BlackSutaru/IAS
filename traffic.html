@@ -146,9 +146,27 @@ background-repeat:no-repeat;
     margin-bottom:20px;
 }
 
+.card h2{
+    color:#b8860b;
+}
+
 .card h3{
     color:#003366;
     margin-bottom:10px;
+}
+
+.card p{
+    font-weight:600;
+}
+
+.card a{
+    text-decoration:none;
+    color:#003366;
+    font-weight:bold;
+}
+
+.card a:hover{
+    color:#00509e;
 }
 
 footer{
@@ -215,17 +233,15 @@ footer{
     z-index:99999;
 }
 
-.sidebar.active{
-    left:0;
-}
-
-
-
 .sidebar a{
     display:block;
     color:white;
     padding:15px 20px;
     text-decoration:none;
+}
+
+.sidebar.active{
+    left:0;
 }
 
 .sidebar a:hover{
@@ -242,7 +258,7 @@ onclick="openMenu()">&#9776;</button>
 
 <div id="sidebar" class="sidebar">
 
-<a href="#">🏠 Home</a>
+<a href="index.html">🏠 Home</a>
 
 <a href="penalcode.html">📜 Penal Code</a>
 
@@ -281,92 +297,57 @@ onclick="openMenu()">&#9776;</button>
 
 </nav>
 
-</section>
-<section class="slider">
-
-<div class="slide active" style="background-image:url('img/banner1.jpg');">
-    <h2>Internal Affairs Bureau</h2>
-    <p>Maintaining Integrity and Accountability</p>
-</div>
-
-<div class="slide" style="background-image:url('img/banner2.jpg');">
-    <h2>Professional Standards Division</h2>
-    <p>Serving with Professionalism</p>
-</div>
-
-<div class="slide" style="background-image:url('img/banner3.jpeg');">
-    <h2>Killing And Secure The Area</h2>
-    <p>Serving with Professionalism</p>
-</div>
-
-
-<button class="prev" onclick="prevSlide()">❮</button>
-<button class="next" onclick="nextSlide()">❯</button>
-
-</section>
-
 
 <div class="container">
 
 <div class="card">
-<h3>About Division</h3>
+    <h2>INF.001 - Traffic Infraction</h2>
 
-<p>
-Divisi Internal Affairs dalam sebuah divisi penegakan hukum internal memiliki peran yang sangat krusial dalam menjaga integritas, profesionalisme, serta akuntabilitas seluruh officer. Internal Affairs bertanggung jawab dalam melakukan pengawasan, evaluasi, serta penegakan disiplin terhadap setiap tindakan yang dilakukan oleh officer, sehingga kepercayaan terhadap Sheriff Department dapat tetap terjaga.
+    <p>Pelanggaran lalu lintas umum.</p>
 
-Seiring dengan perkembangan sheriff department yang baru dan meningkatnya kompleksitas tugas, diperlukan sistem pengawasan yang lebih terstruktur, transparan, dan konsisten. Tanpa adanya pengelolaan Internal Affairs yang optimal, potensi terjadinya pelanggaran, penyalahgunaan wewenang, maupun menurunnya kinerja anggota dapat meningkat, yang pada akhirnya berdampak pada citra dan efektivitas Sheriff  Department secara keseluruhan.
-</p>
+    <p><strong>1 Kesalahan Ringan:</strong> $5.000</p>
 
+    <p><strong>1 Kesalahan Berat:</strong> $10.000</p>
 </div>
 
 <div class="card">
-<h3>Latest Announcements</h3>
+    <h2>INF.002 - Driving Without Licence</h2>
 
-<p>
-Belum ada pengumuman terbaru.
-</p>
+    <p>Mengendarai kendaraan tanpa lisensi yang sesuai.</p>
 
+    <p><strong>Flying Licence:</strong> $250.000</p>
+    <p><strong>Trucker Licence:</strong> $50.000</p>
+    <p><strong>Driver Licence:</strong> $25.000</p>
 </div>
 
 <div class="card">
-<h3>Quick Access</h3>
+    <h2>INF.003 - Vehicle Without Plate</h2>
 
-<p>
-• Organizational Structure<br>
-• Procedures<br>
-• Constitution<br>
-• Penal Code
-</p>
+    <p>Kendaraan ilegal atau tanpa plat nomor.</p>
+
+    <p><strong>Denda:</strong> $10.000</p>
+</div>
+
+<div class="card">
+    <h2>INF.004 - Illegal Parking</h2>
+
+    <p>Parkir sembarangan tanpa izin.</p>
+
+    <p><strong>Tanpa Pemilik/Mobil Ditinggalkan:</strong> Impound</p>
+    <p><strong>Ada Pemilik/Bersangkutan:</strong> Denda $50.000</p>
+</div>
+
+<div class="card">
+    <h2>INF.005 - Car Jacking</h2>
+
+    <p>Pencurian kendaraan.</p>
+
+    <p><strong>Denda:</strong> $25.000</p>
+    <p><strong>Penjara:</strong> 10 Days</p>
+</div>
 
 </div>
 
-<div class="org-chart">
-
-    <div class="leader">
-        <img src="img/head.jpg">
-        <h3>Wesker Wilborn</h3>
-        <p>Head of Internal Affairs</p>
-    </div>
-
-    <div class="staff">
-
-        <div class="member">
-            <img src="img/deputy.jpg">
-            <h4>Axel Ganesha</h4>
-            <p>Co Head Internal Affairs</p>
-        </div>
-
-        <div class="member">
-            <img src="img/supervisor.jpg">
-            <h4>Tan Santcuary</h4>
-            <p>Supervisor</p>
-        </div>
-
-    </div>
-
-</div>
-
-</footer>
 
 <script>
 
