@@ -7,6 +7,63 @@
 
 <style>
 
+
+#jumpscare{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+
+    background:rgba(50,0,0,0,5);
+    color:red;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:180px;
+
+    z-index:999999;
+
+    animation:removeScreen 3s forwards;
+}
+
+@keyframes blink{
+    0%{
+        opacity:1;
+    }
+    
+    50%{
+        opacity:0;}
+
+    100%{
+        opacity:1;
+    }
+}
+
+@keyframes removeScreen{
+    0%,90%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0;
+        visibility:hidden;
+        pointer-events:none;
+    }
+}
+
+#jumpscare img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+
+    opacity:0.5s;
+
+    animation:blink 0.15s infinite;
+}
+
 .prev,
 .next{
     position:absolute;
@@ -41,8 +98,8 @@
 
 body{
     font-family:Segoe UI, Arial, sans-serif;
-    background:#f4f6f9;
-    color:#222;
+    background:#111;
+    color:#ddd;
 }
 
 header{
@@ -139,7 +196,8 @@ background-repeat:no-repeat;
 }
 
 .card{
-    background:white;
+    background: #1b1b1b;
+    color:white;
     padding:25px;
     border-radius:10px;
     box-shadow:0 2px 8px rgba(0,0,0,0.1);
@@ -259,6 +317,15 @@ footer{
 
 </head>
 <body>
+
+<audio id="horrorSound" autoplay>
+    <source src="audio/horror.mp3" type="audio/mpeg">
+</audio>
+<div id="jumpscare">
+    <img src="img/skull.png">
+
+</div>
+
 
 <button class="menu-btn"
 onclick="openMenu()">&#9776;</button>
