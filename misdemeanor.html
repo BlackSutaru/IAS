@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internal Affairs Bureau - SACSD</title>
+
+<style>
+
+.prev,
+.next{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:10;
+    
+    background:rgba(0,0,0,0.6);
+    color:rgb(46, 68, 211);
+
+    border:none;
+    cursor:pointer;
+
+    font-size:28px;
+
+    padding:15px 20px;
+}
+
+.prev{
+    left:20px;
+}
+
+.next{
+    right:20px;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Segoe UI, Arial, sans-serif;
+    background:#f4f6f9;
+    color:#222;
+}
+
+header{
+    background:#003366 !important;
+    color:#cfe8ff;
+    padding:20px;
+}
+
+.header-container{
+    max-width:1200px;
+    margin:auto;
+    transition:0.3s ease;
+}
+
+.shift{
+    transform:translate(80px);
+    transition:0.35s ease;
+}
+
+header h1{
+    font-size:32px;
+}
+
+header p{
+    margin-top:5px;
+}
+
+nav{
+    background:#00509e;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+}
+
+nav li{
+    padding:15px 20px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#cfe8ff;
+}
+
+.slider{
+    position:relative;
+    height:400px;
+    overflow:hidden;
+}
+
+.slide{
+    position:absolute;
+    width:100%;
+    height:300px;
+
+    display:none;
+
+    background:#003366;
+    color:white;
+
+    text-align:center;
+
+    padding-top:100px;
+
+    background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+}
+
+.slide.active{
+    display:block;
+}
+
+.slide h2{
+    font-size:42px;
+}
+
+.slide p{
+    margin-top:10px;
+    font-size:18px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:30px 20px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom:20px;
+}
+
+.card h2{
+    color:#003366;
+    font-size:32px;;
+    margin-bottom:5px;
+}
+
+.card h3{
+    color:#003366;
+   font-size:22px;;
+    margin-bottom:15px;
+}
+
+.card p{
+    font-weight:600;
+    font-size:17px;
+    line-height:1.6;
+}
+
+.card a{
+    text-decoration:none;
+    color:#003366;
+    font-weight:bold;
+}
+
+.card a:hover{
+    color:#00509e;
+}
+
+footer{
+    background:#003366;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+.org-chart{
+    text-align:center;
+    padding:30px;
+}
+
+.leader img{
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    object-fit:cover;
+    border:5px solid #00509e;
+}
+
+.staff{
+    margin-top:70px;
+
+    display:flex;
+    justify-content:center;
+    gap:220px;
+
+    border-top:2px solid #d0d0d0;
+    padding-top:50px;
+
+}
+
+.member img{
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid #00509e;
+}
+
+.menu-btn{
+    position:fixed;
+    top:15px;
+    left:15px;
+    font-size:28px;
+    background:none;
+    border:none;
+    color:white;
+    cursor:pointer;
+    z-index:100000;
+}
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:-250px;
+    width:180px;
+    height:100%;
+    background:#003366;
+    transition:0.3s;
+    padding-top:70px;
+    z-index:99999;
+}
+
+.sidebar a{
+    display:block;
+    color:white;
+    padding:15px 20px;
+    text-decoration:none;
+}
+
+.sidebar.active{
+    left:0;
+}
+
+.sidebar a:hover{
+    background:#00509e;
+}
+
+</style>
+
+</head>
+<body>
+
+<button class="menu-btn"
+onclick="openMenu()">&#9776;</button>
+
+<div id="sidebar" class="sidebar">
+
+<a href="index.html">🏠 Home</a>
+
+<a href="penalcode.html">📜 Penal Code</a>
+
+<a href="UUD.html">⚖️ Undang-Undang Kota</a>
+
+<a href="SBI.html">🕵️ Kewenangan Bureau Investigation</a>
+
+<a href="EMS.html">🏥 Penalty Medical Services</a>
+
+<a href="POLICE.html">👮 Undang-Undang Kepolisian</a>
+
+<a href="#">📋 Procedures</a>
+
+<a href="#">👥 Structure</a>
+
+<a href="#">⚖️ Constitution</a>
+
+<a href="#">ℹ️ About Division</a>
+
+</div>
+
+<header>
+
+<div class="header-container">
+
+<h1>INTERNAL AFFAIRS BUREAU</h1>
+
+<p>San Andreas Police Department</p>
+
+<p>Ten Roleplay</p>
+
+</div>
+</header>
+
+<nav>
+
+</nav>
+
+
+<div class="container">
+
+<div class="card">
+
+<h2>INF.001</h2>
+
+<h3>Visual Gun</h3>
+
+<hr>
+
+<p>
+<b>Weapon Class I</b><br>
+Denda: $50.000<br>
+Penjara: 10 Bulan
+</p>
+
+<br>
+
+<p>
+<b>Weapon Class II</b><br>
+Denda: $75.000<br>
+Penjara: 15 Bulan
+</p>
+
+<br>
+
+<p>
+<b>Weapon Class III</b><br>
+Denda: $100.000<br>
+Penjara: 15 Bulan
+</p>
+
+</div>
+
+<div class="card">
+    <h2>M.002</h2>
+
+    <h3>Illegal Item</h3>
+    <hr>
+
+    <p><b>Marijuana,Joint,Vest,Tulang,Kulit,DLL</b><br>
+Denda: $50.000<br>
+Penjara: 10 Bulan</p>
+
+</div>
+
+<div class="card">
+    <h2>M.003</h2>
+<h3>Illegal job</h3>
+<hr>
+
+    <p><b>Illegal Hunting</b><br>
+Denda: $50.000<br>
+Penjara: 10 Bulan</p>
+
+    <p><strong>Denda:</strong> $10.000</p>
+</div>
+
+<div class="card">
+    <h2>INF.004 - Illegal Parking</h2>
+
+    <p>Parkir sembarangan tanpa izin.</p>
+
+    <p><strong>Tanpa Pemilik/Mobil Ditinggalkan:</strong> Impound</p>
+    <p><strong>Ada Pemilik/Bersangkutan:</strong> Denda $50.000</p>
+</div>
+
+<div class="card">
+    <h2>INF.005 - Car Jacking</h2>
+
+    <p>Pencurian kendaraan.</p>
+
+    <p><strong>Denda:</strong> $25.000</p>
+    <p><strong>Penjara:</strong> 10 Days</p>
+</div>
+
+</div>
+
+
+<script>
+
+let current = 0;
+
+const slides = document.querySelectorAll('.slide');
+
+function showSlide(index){
+    slides.forEach(slide=>{
+        slide.classList.remove('active');
+    });
+
+    slides[index].classList.add('active');
+}
+
+function nextSlide(){
+    current++;
+
+    if(current >= slides.length){
+        current = 0;
+    }
+
+    showSlide(current);
+}
+
+function prevSlide(){
+    current--;
+
+    if(current < 0){
+        current = slides.length - 1;
+    }
+
+    showSlide(current);
+}
+
+setInterval(nextSlide, 8000);
+
+</script>
+
+<script>
+
+function openMenu(){
+
+document
+.getElementById("sidebar")
+.classList
+.toggle("active");
+
+document
+.querySelector('.header-container')
+.classList
+.toggle('shift')
+
+}
+
+</script>
+
+</body>
+</html>
