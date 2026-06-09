@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Officer Login</title>
+
+<style>
+body{
+    background:#111;
+    color:white;
+    font-family:Arial;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.box{
+    background:#1b1b1b;
+    padding:30px;
+    border-radius:10px;
+    width:300px;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+}
+
+button{
+    width:100%;
+    padding:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Officer Login</h2>
+
+<input
+type="email"
+id="email"
+placeholder="Email">
+
+<input
+type="password"
+id="password"
+placeholder="Password">
+
+<button id="loginBtn">
+Login
+</button>
+
+</div>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+getAuth,
+signInWithEmailAndPassword
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBN85Z5bRNj-4crl4Sgdr0SU453uUmfxZs",
+authDomain: "internal-affairs-bureau.firebaseapp.com",
+projectId: "internal-affairs-bureau",
+storageBucket: "internal-affairs-bureau.firebasestorage.app",
+messagingSenderId: "475550676099",
+appId: "1:475550676099:web:2253f18e5e4cd0168217b6"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+document
+.getElementById("loginBtn")
+.onclick = async ()=>{
+
+const email =
+document.getElementById("email").value;
+
+const password =
+document.getElementById("password").value;
+
+try{
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+location.href =
+"dashboard.html";
+
+}catch(error){
+
+alert("Login gagal!");
+
+}
+
+};
+
+</script>
+
+</body>
+</html>

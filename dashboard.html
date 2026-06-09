@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Officer Dashboard</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#111;
+    color:white;
+    padding:20px;
+}
+
+h1{
+    color:#00aaff;
+}
+
+.card{
+    background:#1b1b1b;
+    padding:15px;
+    margin:15px 0;
+    border-radius:10px;
+}
+
+.pending{
+    color:orange;
+}
+
+.accepted{
+    color:lime;
+}
+
+.rejected{
+    color:red;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Recruitment Dashboard</h1>
+
+<button id="logoutBtn">
+🪦 Logout
+</button>
+
+<div id="Stats"></div>
+
+<br>
+
+<input
+type="text"
+id="searchBox"
+placeholder="Cari Nama IC..."
+style="
+width: 100%;
+padding: 10px;
+margin-bottom: 20px;
+">
+
+<div id="applications"></div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import {
+getFirestore,
+collection,
+getDocs,
+updateDoc,
+doc
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+import {
+getAuth,
+onAuthStateChanged,
+signOut
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyBN85Z5bRNj-4crl4Sgdr0SU453uUmfxZs",
+  authDomain: "internal-affairs-bureau.firebaseapp.com",
+  projectId: "internal-affairs-bureau",
+  storageBucket: "internal-affairs-bureau.firebasestorage.app",
+  messagingSenderId: "475550676099",
+  appId: "1:475550676099:web:2253f18e5e4cd0168217b6"
+
+};
+
+const app = initializeApp(firebaseConfig);
+const auth =getAuth(app);
+onAuthStateChanged(auth,(user) => {
+    if(!user){
+        location.href = "login.html";
+
+    }
+});
+
+const db = getFirestore(app);
+
+const container =
+document.getElementById("applications");
+
+let total = 0;
+let pending = 0;
+let accepted = 0;
+let rejected = 0;
+
+const querySnapshot =
+await getDocs(collection(db,"applications"));
+
+querySnapshot.forEach((applications)=>{
+
+const data = applications.data();
+
+total++;
+
+if(data.status === "Pending"){
+    pending++;
+}
+
+if(data.status === "Accepted"){
+    accepted++;
+}
+
+if(data.status === "Rejected"){
+    rejected++;
+}
+
+let statusClass = "pending";
+
+if(data.status === "Accepted"){
+    statusClass = "accepted";
+}
+
+if(data.status === "Rejected"){
+    statusClass = "rejected";
+}
+
+container.innerHTML += `
+
+<div class="card">
+
+<h2>${data.namaIC}</h2>
+
+<p>
+Discord:
+${data.discord}
+</p>
+
+<p>
+Nama OOC:
+${data.namaOOC}
+</p>
+
+<p>Umur IC: ${data.umurIC}</p>
+
+<p>
+Pengalaman RP:
+${data.pengalamanRP}
+</p>
+
+<p>
+Alasan:
+${data.alasan}
+</p>
+
+<p>
+Status:
+<span class="${statusClass}">
+${data.status}
+</span>
+</p>
+
+<p>
+Tanggal:
+${data.tanggal}
+</p>
+
+<button onclick="acceptApplication('${applications.id}')">
+✅ Accept
+</button>
+
+<button onclick="rejectApplication('${applications.id}')">
+❌ Reject
+</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("Stats").innerHTML = `
+
+<div class="card">
+
+<h2>Statistics</h2>
+
+<p>Total Applications: ${total}</p>
+
+<p style="color:orange">
+Pending: ${pending}
+</p>
+
+<p style="color:lime">
+Accepted: ${accepted}
+</p>
+
+<p style="color:red">
+Rejected: ${rejected}
+</p>
+
+</div>
+
+`;
+
+window.acceptApplication = async function(id){
+
+    await updateDoc(
+        doc(db,"applications",id),
+        {
+            status:"Accepted"
+        }
+    );
+
+    location.reload();
+
+}
+
+window.rejectApplication = async function(id){
+
+    await updateDoc(
+        doc(db,"applications",id),
+        {
+            status:"Rejected"
+        }
+    );
+
+    location.reload();
+
+}
+
+document
+.getElementById("logoutBtn")
+.addEventListener("click", async ()=>{
+
+await signOut(auth);
+
+location.href = "login.html";
+
+});
+
+document
+.getElementById("searchBox")
+.addEventListener("keyup", function(){
+
+const keyword =
+this.value.toLowerCase();
+
+const cards =
+document.querySelectorAll(".card");
+
+cards.forEach(card=>{
+
+const text =
+card.innerText.toLowerCase();
+
+if(text.includes(keyword)){
+
+card.style.display = "block";
+
+}else{
+
+card.style.display = "none";
+
+}
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

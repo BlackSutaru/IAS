@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PD Recruitment</title>
+
+<style>
+
+body{
+    font-family:Segoe UI, Arial;
+    background:#f4f6f9;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+input,
+textarea{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:15px;
+
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    background:#003366;
+    color:white;
+
+    border:none;
+    padding:12px 20px;
+
+    border-radius:5px;
+
+    cursor:pointer;
+}
+
+button:hover{
+    background:#00509e;
+}
+
+.card{
+    background: white;
+    padding: 35px;
+    border-radius: 35px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.status{
+    background: #28a745;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sheriff Department Recruitment</h1>
+
+</header>
+
+<div class=""STATUS">
+🟢 OPEN RECUITMENT
+</div>
+
+<h3>Recruitment</h3>
+
+<ul>
+<li>Memiliki ID Card / KTP</li>
+<li>Tidak Meiliki Catatan Kriminal</li>
+</ul>
+
+<div class="container">
+
+<div class="card">
+
+<h2>👮 Police Department Recruitment</h2>
+
+<form id="applicationForm">
+
+<label>Nama IC</label>
+<input type="text" id="namaIC">
+
+<label>Nama OOC</label>
+<input type="text" id="namaOOC">
+
+<label>Discord</label>
+<input type="text" id="discord">
+
+<label>Umur IC</label>
+<input type="number" id="umurIC">
+
+<label>Pengalaman RP</label>
+<textarea id="pengalamanRP" rows="4"></textarea>
+
+<label>Alasan Bergabung</label>
+<textarea id="alasan" rows="6"></textarea>
+
+<label>SS Stats</label>
+<input type="file">
+
+<label>SS TAB</label>
+<input type="file">
+
+<button type="submit">
+📨 Submit Application
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBN85Z5bRNj-4crl4Sgdr0SU453uUmfxZs",
+  authDomain: "internal-affairs-bureau.firebaseapp.com",
+  projectId: "internal-affairs-bureau",
+  storageBucket: "internal-affairs-bureau.firebasestorage.app",
+  messagingSenderId: "475550676099",
+  appId: "1:475550676099:web:2253f18e5e4cd0168217b6",
+  measurementId: "G-0E9ZJYWFWL"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+document.getElementById("applicationForm")
+.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    try{
+
+        await addDoc(collection(db, "applications"), {
+
+            namaIC: document.getElementById("namaIC").value,
+            namaOOC: document.getElementById("namaOOC").value,
+            discord: document.getElementById("discord").value,
+            umurIC: document.getElementById("umurIC").value,
+            pengalamanRP: document.getElementById("pengalamanRP").value,
+            alasan: document.getElementById("alasan").value,
+
+            status: "Pending",
+            tanggal: new Date().toLocaleString()
+
+        });
+
+        alert("Lamaran berhasil dikirim!");
+
+        document.getElementById("applicationForm").reset();
+
+    }catch(error){
+
+        console.error(error);
+        alert("Gagal mengirim lamaran!");
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
