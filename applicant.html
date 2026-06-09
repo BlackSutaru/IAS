@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Applicant Details</title>
+
+<style>
+
+body{
+    background:#111;
+    color:white;
+    font-family:Arial;
+    padding:20px;
+}
+
+.card{
+    background:#1b1b1b;
+    padding:20px;
+    border-radius:10px;
+}
+
+a{
+    color:#00aaff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Applicant Details</h1>
+
+<button onclick="location.href='dashboard.html'">
+⬅ Back to Dashboard
+</button>
+
+<br><br>
+
+<div id="applicant"></div>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+getFirestore,
+doc,
+getDoc,
+updateDoc
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBN85Z5bRNj-4crl4Sgdr0SU453uUmfxZs",
+authDomain: "internal-affairs-bureau.firebaseapp.com",
+projectId: "internal-affairs-bureau",
+storageBucket: "internal-affairs-bureau.firebasestorage.app",
+messagingSenderId: "475550676099",
+appId: "1:475550676099:web:2253f18e5e4cd0168217b6"
+
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const params =
+new URLSearchParams(window.location.search);
+
+const id =
+params.get("id");
+
+const docRef =
+doc(db,"applications",id);
+
+const docSnap =
+await getDoc(docRef);
+
+if(docSnap.exists()){
+
+const data =
+docSnap.data();
+
+document.getElementById("applicant").innerHTML = `
+
+<div class="card">
+
+<h2>${data.namaIC}</h2>
+
+<p>Nama OOC: ${data.namaOOC}</p>
+
+<p>Discord: ${data.discord}</p>
+
+<p>Umur IC: ${data.umurIC}</p>
+
+<p>Batch: ${data.batch}</p>
+
+<p>Status: ${data.status}</p>
+
+<p>Pengalaman RP:</p>
+<p>${data.pengalamanRP}</p>
+
+<p>Alasan:</p>
+<p>${data.alasan}</p>
+
+<p>
+<a href="${data.statsURL}" target="_blank">
+📷 View Stats
+</a>
+</p>
+
+<p>
+<a href="${data.tabURL}" target="_blank">
+📷 View TAB
+</a>
+</p>
+
+
+<h3>Interview Notes</h3>
+
+<textarea
+id="notes"
+rows="8"
+style="width:100%;"
+>${data.notes || ""}</textarea>
+
+<br><br>
+
+<button onclick="saveNotes()">
+💾 Save Notes
+</button>
+
+</div>
+
+`;
+
+}
+
+window.saveNotes = async function(){
+
+await updateDoc(
+    doc(db,"applications",id),
+    {
+        notes:
+        document.getElementById("notes").value
+    }
+);
+
+alert("Notes saved!");
+
+}
+
+</script>
+
+</body>
+</html>

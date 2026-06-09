@@ -62,6 +62,22 @@ padding: 10px;
 margin-bottom: 20px;
 ">
 
+<button onclick="filterStatus('all')">
+All
+</button>
+
+<button onclick="filterStatus('Pending')">
+Pending
+</button>
+
+<button onclick="filterStatus('Accepted')">
+Accepted
+</button>
+
+<button onclick="filterStatus('Rejected')">
+Rejected
+</button>
+
 <div id="applications"></div>
 
 <script type="module">
@@ -101,6 +117,7 @@ onAuthStateChanged(auth,(user) => {
         location.href = "login.html";
 
     }
+    console.log("UID", user.uid);
 });
 
 const db = getFirestore(app);
@@ -146,31 +163,9 @@ if(data.status === "Rejected"){
 
 container.innerHTML += `
 
-<div class="card">
+<div class="card" data-status="${data.status}">
 
 <h2>${data.namaIC}</h2>
-
-<p>
-Discord:
-${data.discord}
-</p>
-
-<p>
-Nama OOC:
-${data.namaOOC}
-</p>
-
-<p>Umur IC: ${data.umurIC}</p>
-
-<p>
-Pengalaman RP:
-${data.pengalamanRP}
-</p>
-
-<p>
-Alasan:
-${data.alasan}
-</p>
 
 <p>
 Status:
@@ -183,6 +178,17 @@ ${data.status}
 Tanggal:
 ${data.tanggal}
 </p>
+
+
+<br><br>
+
+<br><br>
+
+<button onclick="viewApplicant('${applications.id}')">
+view
+</button>
+
+<br><br>
 
 <button onclick="acceptApplication('${applications.id}')">
 ✅ Accept
@@ -245,6 +251,62 @@ window.rejectApplication = async function(id){
     );
 
     location.reload();
+
+}
+
+window.saveNotes = async function(id){
+
+    const notes =
+    document.getElementById(`note-${id}`).value;
+
+    await updateDoc(
+        doc(db,"applications",id),
+        {
+            notes: notes
+        }
+    );
+
+    alert("Notes saved!");
+
+}
+
+window.viewApplicant = function(id){
+
+location.href =
+"applicant.html?id=" + id;
+
+}
+
+
+window.filterStatus = function(status){
+console.log("filter:", status);
+
+const cards =
+document.querySelectorAll(".card[data-status]");
+
+console.log(cards.length);
+
+cards.forEach(card=>{
+
+if(status === "all"){
+
+card.style.display = "block";
+
+return;
+
+}
+
+if(card.dataset.status === status){
+
+card.style.display = "block";
+
+}else{
+
+card.style.display = "none";
+
+}
+
+});
 
 }
 

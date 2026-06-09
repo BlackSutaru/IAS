@@ -115,11 +115,21 @@ button:hover{
 <label>Alasan Bergabung</label>
 <textarea id="alasan" rows="6"></textarea>
 
-<label>SS Stats</label>
-<input type="file">
+<label>Link SS Stats</label>
+<input
+type="url"
+id="statsURL"
+placeholder="https://..."
+required
+>
 
-<label>SS TAB</label>
-<input type="file">
+<label>Link SS TAB</label>
+<input
+type="url"
+id="tabURL"
+placeholder="https://..."
+required
+>
 
 <button type="submit">
 📨 Submit Application
@@ -156,6 +166,12 @@ document.getElementById("applicationForm")
 
     try{
 
+        const statsURL =
+document.getElementById("statsURL").value;
+
+const tabURL =
+document.getElementById("tabURL").value;
+
         await addDoc(collection(db, "applications"), {
 
             namaIC: document.getElementById("namaIC").value,
@@ -164,6 +180,9 @@ document.getElementById("applicationForm")
             umurIC: document.getElementById("umurIC").value,
             pengalamanRP: document.getElementById("pengalamanRP").value,
             alasan: document.getElementById("alasan").value,
+
+            statsURL: statsURL,
+            tabURL: tabURL,
 
             status: "Pending",
             tanggal: new Date().toLocaleString()
