@@ -87,7 +87,6 @@ import {
 getFirestore,
 collection,
 getDocs,
-getDoc,
 updateDoc,
 doc
 }
@@ -150,8 +149,6 @@ let rejected = 0;
 const querySnapshot =
 await getDocs(collection(db,"applications"));
 
-let role = "";
-
 querySnapshot.forEach((applications)=>{
 
 const data = applications.data();
@@ -199,13 +196,12 @@ ${data.tanggal}
 </p>
 
 
-<br>
+<br><br>
 
-
-${role === "Internal Affairs" ? `
+<br><br>
 
 <button onclick="viewApplicant('${applications.id}')">
-View
+view
 </button>
 
 <br><br>
@@ -217,14 +213,6 @@ View
 <button onclick="rejectApplication('${applications.id}')">
 ❌ Reject
 </button>
-
-` : `
-
-<button onclick="viewApplicant('${applications.id}')">
-View
-</button>
-
-`}
 
 </div>
 

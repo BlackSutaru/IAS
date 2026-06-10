@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register</title>
+</head>
+
+<head>
+
+<input type="text" id="discordName" placeholder="Discord Name">
+
+<input type="email" id="email" placeholder="Email">
+
+<input type="password" id="password" placeholder="Password">
+
+<input type="password" id="confirmPassword" placeholder="Confirm Password">
+
+<button id="registerBtn">
+Register
+</button>
+
+<p>
+Sudah punya akun?
+<a href ="login.html">Login</a>
+</p>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+getAuth,
+createUserWithEmailAndPassword,
+sendEmailVerification
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+getFirestore,
+doc,
+setDoc
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBN85Z5bRNj-4crl4Sgdr0SU453uUmfxZs",
+  authDomain: "internal-affairs-bureau.firebaseapp.com",
+  projectId: "internal-affairs-bureau",
+  storageBucket: "internal-affairs-bureau.firebasestorage.app",
+  messagingSenderId: "475550676099",
+  appId: "1:475550676099:web:2253f18e5e4cd0168217b6"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+document
+.getElementById("registerBtn")
+.onclick = async ()=>{
+
+const discordName =
+document.getElementById("discordName").value;
+
+const email =
+document.getElementById("email").value;
+
+const password =
+document.getElementById("password").value;
+
+const confirmPassword =
+document.getElementById("confirmPassword").value;
+
+if(password !== confirmPassword){
+
+alert("Password tidak sama!");
+
+return;
+
+}
+
+try{
+
+const credential =
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+const user =
+credential.user;
+
+await setDoc(
+doc(db,"users",user.uid),
+{
+discordName: discordName,
+email: email,
+role: "recruiter"
+}
+);
+
+await sendEmailVerification(user);
+
+alert(
+"Account created! Check your email for verification."
+);
+
+location.href =
+"login.html";
+
+}catch(error){
+
+console.error(error);
+
+alert(error.message);
+
+}
+
+};
+
+</script>
+
+
+</head>
+
+</html>
+
+
+
+

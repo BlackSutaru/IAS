@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Application</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#111;
+    color:white;
+    padding:20px;
+}
+
+.card{
+    background:#1b1b1b;
+    padding:15px;
+    margin-bottom:15px;
+    border-radius:10px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+th,td{
+    border:1px solid #444;
+    padding:10px;
+    text-align:left;
+}
+
+th{
+    background:#222;
+}
+
+.pending{
+    color:orange;
+}
+
+.accepted{
+    color:lime;
+}
+
+.rejected{
+    color:red;
+}
+
+button{
+    padding:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Recruitment Dashboard</h1>
+
+<button id="logoutBtn">
+Logout
+</button>
+
+<h2>📄 My Application</ h2>
+
+<div id="myApplication"></div>
+
+<hr>
+
+<h2>📋 All Applicants</h2>
+
+<div id="allApplicants"></div>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+import {
+getAuth,
+onAuthStateChanged,
+signOut
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBN85Z5bRNj-4crl4Sgdr0SU453uUmfxZs",
+authDomain: "internal-affairs-bureau.firebaseapp.com",
+projectId: "internal-affairs-bureau",
+storageBucket: "internal-affairs-bureau.firebasestorage.app",
+messagingSenderId: "475550676099",
+appId: "1:475550676099:web:2253f18e5e4cd0168217b6"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, async(user)=>{
+
+if(!user){
+
+location.href = "login.html";
+
+return;
+
+}
+
+const querySnapshot =
+await getDocs(collection(db,"applications"));
+
+let myHTML = "";
+
+let table = `
+
+<table>
+
+<tr>
+<th>Nama IC</th>
+<th>Discord</th>
+<th>Status</th>
+</tr>
+
+`;
+
+querySnapshot.forEach((docSnap)=>{
+
+const data = docSnap.data();
+
+let statusClass = "pending";
+
+if(data.status === "Accepted"){
+statusClass = "accepted";
+}
+
+if(data.status === "Rejected"){
+statusClass = "rejected";
+}
+
+if(data.ownerUID === user.uid){
+
+myHTML += `
+
+<div class="card">
+
+<h3>${data.namaIC}</h3>
+
+<p>Batch: ${data.batch}</p>
+
+<p>Status:
+<span class="${statusClass}">
+${data.status}
+</span>
+</p>
+
+<p>Tanggal: ${data.tanggal}</p>
+
+<a href="applicant.html?id=${docSnap.id}">
+View My Application
+</a>
+
+</div>
+
+`;
+
+}
+
+table += `
+
+<tr>
+
+<td>${data.namaIC}</td>
+
+<td>${data.discord}</td>
+
+<td class="${statusClass}">
+${data.status}
+</td>
+
+</tr>
+
+`;
+
+});
+
+table += "</table>";
+
+document.getElementById("myApplication").innerHTML =
+myHTML || "<div class='card'>Belum ada lamaran.</div>";
+
+document.getElementById("allApplicants").innerHTML =
+table;
+
+});
+
+document
+.getElementById("logoutBtn")
+.addEventListener("click", async()=>{
+
+await signOut(auth);
+
+location.href = "login.html";
+
+});
+
+</script>
+
+</body>
+</html>

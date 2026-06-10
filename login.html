@@ -68,6 +68,13 @@ signInWithEmailAndPassword
 }
 from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
+import {
+    getFirestore,
+    doc,
+    getDoc
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
 const firebaseConfig = {
 
 apiKey: "AIzaSyBN85Z5bRNj-4crl4Sgdr0SU453uUmfxZs",
@@ -83,6 +90,8 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
+const db = getFirestore(app);
+
 document
 .getElementById("loginBtn")
 .onclick = async ()=>{
@@ -95,18 +104,38 @@ document.getElementById("password").value;
 
 try{
 
+const credential =
 await signInWithEmailAndPassword(
 auth,
 email,
 password
 );
 
-location.href =
-"dashboard.html";
+const user =
+credential.user;
+
+const userDoc =
+await getDoc(
+doc(db,"users",user.uid)
+);
+
+let role = "recruiter";
+
+if(userDoc.exists()){
+role = userDoc.data().role;
+}
+
+if(role === "recruiter"){
+location.href = "myapplication.html";
+}else{
+location.href = "dashboard.html";
+}
 
 }catch(error){
 
-alert("Login gagal!");
+console.error(error);
+
+alert(error.message);
 
 }
 

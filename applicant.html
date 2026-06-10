@@ -31,8 +31,8 @@ a{
 
 <h1>Applicant Details</h1>
 
-<button onclick="location.href='dashboard.html'">
-⬅ Back to Dashboard
+<button id="backBtn">
+⬅ Back 
 </button>
 
 <br><br>
@@ -52,6 +52,12 @@ updateDoc
 }
 from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
+import {
+getAuth,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
 const firebaseConfig = {
 
 apiKey: "AIzaSyBN85Z5bRNj-4crl4Sgdr0SU453uUmfxZs",
@@ -65,6 +71,41 @@ appId: "1:475550676099:web:2253f18e5e4cd0168217b6"
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, async (user)=>{
+
+    if(!user){
+        location.href = "login.html";
+        return;
+    }
+
+    const userDoc =
+    await getDoc(
+        doc(db,"users",user.uid)
+    );
+
+    const role =
+    userDoc.data().role;
+
+    document.getElementById("backBtn")
+    .onclick = ()=>{
+
+        if(role === "recruiter"){
+
+            location.href =
+            "myapplication.html";
+
+        }else{
+
+            location.href =
+            "dashboard.html";
+
+        }
+
+    };
+
+});
 
 const params =
 new URLSearchParams(window.location.search);
@@ -82,6 +123,7 @@ if(docSnap.exists()){
 
 const data =
 docSnap.data();
+
 
 document.getElementById("applicant").innerHTML = `
 
@@ -151,6 +193,13 @@ await updateDoc(
 alert("Notes saved!");
 
 }
+
+document.getElementById("backBtn")
+.onclick = ()=>{
+
+    location.href = "myapplication.html";
+
+};
 
 </script>
 

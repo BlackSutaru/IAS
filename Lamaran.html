@@ -78,9 +78,7 @@ button:hover{
 
 </header>
 
-<div class=""STATUS">
-🟢 OPEN RECUITMENT
-</div>
+<div class="status" id="statusBox"></div>
 
 <h3>Recruitment</h3>
 
@@ -131,6 +129,12 @@ placeholder="https://..."
 required
 >
 
+<input
+type="text"
+id="batch"
+readonly
+>
+
 <button type="submit">
 📨 Submit Application
 </button>
@@ -144,7 +148,21 @@ required
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+import {
+getFirestore,
+collection,
+getDoc,
+doc,
+addDoc
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+import {
+getAuth,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBN85Z5bRNj-4crl4Sgdr0SU453uUmfxZs",
@@ -158,6 +176,45 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
+
+const settingsDoc =
+await getDoc(
+    doc(db,"settings","recruitment")
+);
+
+console.log(settingsDoc.exists());
+console.log(settingsDoc.id);
+console.log(settingsDoc.data());
+
+const settings = 
+settingsDoc.data();
+
+console.log(settings);
+
+document.getElementById("statusBox").innerHTML =
+` 🟢 OPEN RECRUITMENT - ${settings.currentBatch}`;
+
+document
+.getElementById("batch").value = settings.currentBatch;
+
+if(!settings.isOpen){
+    document.body.innerHTML = `
+    <h1>
+    🚫 Recruitment closed
+    </h1>
+    `;
+
+throw new Error ("Recruitment Closed");
+}
+
+onAuthStateChanged(auth,(user)=>{
+
+    if(!user){
+        location.href = "login.html";
+    }
+
+});
 
 document.getElementById("applicationForm")
 .addEventListener("submit", async function(e){
@@ -174,6 +231,9 @@ document.getElementById("tabURL").value;
 
         await addDoc(collection(db, "applications"), {
 
+            ownerUID: auth.currentUser.uid,
+            discordName: document.getElementById("discord").value,
+
             namaIC: document.getElementById("namaIC").value,
             namaOOC: document.getElementById("namaOOC").value,
             discord: document.getElementById("discord").value,
@@ -184,6 +244,9 @@ document.getElementById("tabURL").value;
             statsURL: statsURL,
             tabURL: tabURL,
 
+            batch:
+            document.getElementById("batch").value,
+
             status: "Pending",
             tanggal: new Date().toLocaleString()
 
@@ -193,12 +256,16 @@ document.getElementById("tabURL").value;
 
         document.getElementById("applicationForm").reset();
 
+        document.getElementById("batch").value = 
+        settings.currentBatch;
+
     }catch(error){
 
         console.error(error);
         alert("Gagal mengirim lamaran!");
 
     }
+
 
 });
 

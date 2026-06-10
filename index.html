@@ -263,9 +263,9 @@ onclick="openMenu()">&#9776;</button>
 
 <a href="#">ℹ️ About Division</a>
 
-<a href="Lamaran.html">Pendaftaran</a>
+<a href="#" onclick="openRecruitment()">Pendaftaran</a>
 
-<a href="dashboard.html">Dashboard</a>
+<a href="#" onclick="openDashboard()">Dashboard</a>
 
 </div>
 
@@ -373,41 +373,92 @@ Belum ada pengumuman terbaru.
 
 </footer>
 
-<script>
+<script type="module">
 
-let current = 0;
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
-const slides = document.querySelectorAll('.slide');
+import {
+getAuth
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-function showSlide(index){
-    slides.forEach(slide=>{
-        slide.classList.remove('active');
-    });
+import {
+getFirestore,
+doc,
+getDoc
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-    slides[index].classList.add('active');
+const firebaseConfig = {
+  apiKey: "AIzaSyBN85Z5bRNj-4crl4Sgdr0SU453uUmfxZs",
+  authDomain: "internal-affairs-bureau.firebaseapp.com",
+  projectId: "internal-affairs-bureau",
+  storageBucket: "internal-affairs-bureau.firebasestorage.app",
+  messagingSenderId: "475550676099",
+  appId: "1:475550676099:web:2253f18e5e4cd0168217b6"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+window.openRecruitment = function(){
+
+const user = auth.currentUser;
+
+if(!user){
+
+location.href = "login.html";
+
+return;
+
 }
 
-function nextSlide(){
-    current++;
+location.href = "Lamaran.html";
 
-    if(current >= slides.length){
-        current = 0;
-    }
-
-    showSlide(current);
 }
 
-function prevSlide(){
-    current--;
+window.openDashboard = async function(){
 
-    if(current < 0){
-        current = slides.length - 1;
-    }
+const user = auth.currentUser;
 
-    showSlide(current);
+if(!user){
+
+location.href = "login.html";
+
+return;
+
 }
 
-setInterval(nextSlide, 8000);
+const userDoc =
+await getDoc(
+doc(db,"users",user.uid)
+);
+
+let role = "recruiter";
+
+if(userDoc.exists()){
+
+role = userDoc.data().role;
+
+}
+
+if(role === "recruiter"){
+
+location.href =
+"myapplication.html";
+
+}else{
+
+location.href =
+"dashboard.html";
+
+}
+
+}
 
 </script>
 
@@ -428,6 +479,7 @@ document
 }
 
 </script>
+
 
 </body>
 </html>
